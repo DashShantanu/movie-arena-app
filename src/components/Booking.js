@@ -8,16 +8,16 @@ import screen from '../Img/5ff3a50c.webp';
 
 const Booking = () => {
     const Location = useLocation();
-    console.log(Location);
+    // console.log(Location);
     const data = Location.state;
-    const [temp, setTemp] = useState(data);
+    const [temp] = useState(data);
 
     const [c, setC] = useState(0);
     const [p, setP] = useState(0);
 
-    const [details, setDetails] = useState([[], []])
+    const [details] = useState([[], []])
 
-    console.log(details);
+    // console.log(details);
 
     return (<div style={{ backgroundColor: 'white', color: 'black' }}>
         <Stack sx={{ margin: "30px 600px", padding: '10px', width: '400px', display: 'flex', alignItems: 'center' }} direction='row'>

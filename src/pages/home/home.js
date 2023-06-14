@@ -4,43 +4,42 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from 'react-responsive-carousel';
 import { Link } from "react-router-dom";
 import MovieList from "../../components/movieList/movieList";
-import axios from "axios";
+// import axios from "axios";
 
 const Home = () => {
-    const [data, setData] = useState([]);
+    // const [data, setData] = useState([]);
 
-    const [region, setRegion] = React.useState('India');
+    // const [region, setRegion] = React.useState('India');
 
-    const handleChange = (event) => {
-        setRegion(event.target.value);
-    };
+    // const handleChange = (event) => {
+    //     setRegion(event.target.value);
+    // };
 
-    const getData = async () => {
-        var k = [];
-        await axios
-            .get(`https://api.themoviedb.org/3/movie/upcoming?api_key=4606882be56455abf5485c21adf285fb&language=en-US&page=1&region=IN`)
-            .then((res) => {
-                k = res.data.results.filter((i) => i);
-                setData(k);
-                console.log(data);
-            });
-    };
+    // const getData = async () => {
+    //     var k = [];
+    //     await axios
+    //         .get(`https://api.themoviedb.org/3/movie/upcoming?api_key=4606882be56455abf5485c21adf285fb&language=en-US&page=1&region=IN`)
+    //         .then((res) => {
+    //             k = res.data.results.filter((i) => i);
+    //             setData(k);
+    //             console.log(data);
+    //         });
+    // };
 
-    const getGData = async () => {
+    // const getGData = async () => {
+    //     var k = [];
+    //     await axios
+    //         .get(`https://api.themoviedb.org/3/movie/upcoming?api_key=4606882be56455abf5485c21adf285fb&language=en-US&page=1`)
+    //         .then((res) => {
+    //             k = res.data.results.filter((i) => i);
+    //             setData(k);
+    //             console.log(k);
+    //         });
+    // };
 
-        var k = [];
-        await axios
-            .get(`https://api.themoviedb.org/3/movie/upcoming?api_key=4606882be56455abf5485c21adf285fb&language=en-US&page=1`)
-            .then((res) => {
-                k = res.data.results.filter((i) => i);
-                setData(k);
-                console.log(k);
-            });
-    };
-
-    useEffect(() => {
-        (region == 'India' ? getData() : getGData())
-    }, []);
+    // useEffect(() => {
+    //     (region == 'India' ? getData() : getGData())
+    // }, []);
 
     const [popularMovies, setPopularMovies] = useState([])
 
@@ -63,9 +62,10 @@ const Home = () => {
                 >
                     {
                         popularMovies.map((movie, key) => (
-                            <Link style={{ textDecoration: "none", color: "white" }} to={`/movie/${movie.id}`} >
+                            <Link style={{ textDecoration: "none", color: "white" }} to={`/movie/${movie.id}`} key={key} >
                                 <div className="posterImage">
-                                    <img src={`https://image.tmdb.org/t/p/original${movie && movie.backdrop_path}`} />
+                                    <img src={`https://image.tmdb.org/t/p/original${movie && movie.backdrop_path}`}
+                                        alt={`movie poster`} />
                                 </div>
                                 <div className="posterImage__overlay">
                                     <div className="posterImage__title">{movie ? movie.original_title : ""}</div>

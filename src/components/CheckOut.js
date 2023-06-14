@@ -1,17 +1,19 @@
-import { Box, Modal, Card, Container, TableHead, Collapse, Alert, TableBody, IconButton, TableCell, Chip, Typography, CardMedia, Grid, Stack, Table, TableRow, Button, TextField, CardContent, Avatar, CardActions, CardActionArea, } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import { Box, Modal, Card, Container, TableHead, Collapse, Alert, TableBody, IconButton, TableCell, Chip, Typography, Grid, Stack, Table, TableRow, Button, TextField, CardContent, Avatar, CardActions } from "@mui/material";
+import React, { useState } from "react";
 import not from "../Img/notfound.png";
 import CloseIcon from '@mui/icons-material/Close';
 
-import { Link, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import GetAppRoundedIcon from "@mui/icons-material/GetAppRounded";
 import notfound from "../Img/notfound.png";
-import { blue, green } from "@mui/material/colors";
+import { blue } from "@mui/material/colors";
 import QRCode from "qrcode";
 import { FacebookShareButton, TelegramShareButton, WhatsappShareButton, } from "react-share";
 import { FacebookIcon, TelegramIcon, WhatsappIcon, } from "react-share";
+
+
 const CheckOut = () => {
     const [code, setCode] = useState('')
     const [link, setLink] = useState('')
@@ -29,35 +31,35 @@ const CheckOut = () => {
     const [openAlert, setOpenAlert] = React.useState(false);
 
 
-    const genre = [
-        { id: 12, name: "Adventure" },
-        { id: 28, name: "Action" },
-        { id: 16, name: "Animation" },
-        { id: 35, name: "Comedy" },
-        { id: 80, name: "Crime" },
-        { id: 99, name: "Documentary" },
-        { id: 18, name: "Drama" },
-        { id: 10751, name: "Family" },
-        { id: 14, name: "Fantasy" },
-        { id: 36, name: "History" },
-        { id: 27, name: "Horror" },
-        { id: 10402, name: "Music" },
-        { id: 9648, name: "Mystery" },
-        { id: 10749, name: "Romance" },
-        { id: 878, name: "Science Fiction" },
-        { id: 10770, name: "TV Movie" },
-        { id: 53, name: "Thriller" },
-        { id: 10752, name: "War" },
-        { id: 37, name: "Western" },
-    ];
+    // const genre = [
+    //     { id: 12, name: "Adventure" },
+    //     { id: 28, name: "Action" },
+    //     { id: 16, name: "Animation" },
+    //     { id: 35, name: "Comedy" },
+    //     { id: 80, name: "Crime" },
+    //     { id: 99, name: "Documentary" },
+    //     { id: 18, name: "Drama" },
+    //     { id: 10751, name: "Family" },
+    //     { id: 14, name: "Fantasy" },
+    //     { id: 36, name: "History" },
+    //     { id: 27, name: "Horror" },
+    //     { id: 10402, name: "Music" },
+    //     { id: 9648, name: "Mystery" },
+    //     { id: 10749, name: "Romance" },
+    //     { id: 878, name: "Science Fiction" },
+    //     { id: 10770, name: "TV Movie" },
+    //     { id: 53, name: "Thriller" },
+    //     { id: 10752, name: "War" },
+    //     { id: 37, name: "Western" },
+    // ];
 
     const Location = useLocation();
     const data = Location.state;
-    console.log(data);
+    // console.log(data);
     const gotgenre = data.data.genres;
-    console.log(gotgenre);
+    // console.log(gotgenre);
     const Amount = 600 * data.c + data.p * 450;
-    const [details, setDetails] = useState([data])
+    const [details] = useState([data])
     const [FinalData, setFinalData] = useState()
     const [FinalConfirm, setFinalConfirm] = useState(false)
 
@@ -71,11 +73,11 @@ const CheckOut = () => {
     const { register, handleSubmit } = useForm();
 
     const onSubmit = async (res) => {
-        details.push(res)
-        console.log(details);
+        details.push(res);
+        // console.log(details);
         await QRCode.toDataURL(code).then((link) => {   // this is consuming the 'code'
             setLink(link);
-            console.log(link);
+            // console.log(link);
         })
 
         await axios.post(`https://61dbe2ea591c3a0017e1a59e.mockapi.io/Ticket`, {
@@ -87,7 +89,7 @@ const CheckOut = () => {
         })
             .then((res) => {
                 setFinalData(res.data)
-                console.log(res.data)
+                // console.log(res.data)
             })
     };
 
@@ -120,6 +122,7 @@ const CheckOut = () => {
                                         ? not
                                         : `https://image.tmdb.org/t/p/original/${data.data.poster_path}`
                                 }
+                                alt={data.data.title}
                             ></img>
                         </div>
                     </Grid>
@@ -132,9 +135,13 @@ const CheckOut = () => {
                                 <Chip label={i.name} key={key} color="primary" />
                             ))}
                         </Stack>
-                        <Table >
 
-                            <TableHead sx={{ fontSize: '1.5rem' }} >Tickets</TableHead>
+                        <Table>
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell sx={{ fontSize: '1.5rem' }}>Tickets</TableCell>
+                                </TableRow>
+                            </TableHead>
                             <TableBody>
                                 <TableRow>
                                     <TableCell variant="head">Prime</TableCell>
